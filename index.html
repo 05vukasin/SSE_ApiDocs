@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #5D5C61;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint {
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .code-example {
+            background: #e7e7e7;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>SSE API Dokumentacija</h1>
+
+        <!-- Grupa: Testiranje -->
+        <h2>Grupa: Testiranje</h2>
+        <div class="endpoint">
+            <h3>1. TestConnection</h3>
+            <p><strong>Endpoint:</strong> <code>/api/test-connection</code></p>
+            <p><strong>Metoda:</strong> GET</p>
+            <p><strong>Opis:</strong> Ova funkcija testira povezivanje sa bazom podataka koristeći definisani connection string.</p>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešno povezivanje na bazu podataka.</li>
+                <li><strong>500 Internal Server Error:</strong> Greška prilikom povezivanja. Vraća detaljan opis greške.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+GET /api/test-connection HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Uspešno povezivanje na bazu podataka."
+}
+            </pre>
+        </div>
+
+        <!-- Grupa: Korisnik -->
+        <h2>Grupa: Korisnik</h2>
+
+        <div class="endpoint">
+            <h3>1. Dodavanje korisnika</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnik</code></p>
+            <p><strong>Metoda:</strong> POST</p>
+            <p><strong>Opis:</strong> Ova funkcija dodaje novog korisnika u bazu podataka.</p>
+            <h4>Telo zahteva (Body):</h4>
+            <ul>
+                <li><strong>ime (string):</strong> Ime korisnika. (Obavezno)</li>
+                <li><strong>prezime (string):</strong> Prezime korisnika. (Obavezno)</li>
+                <li><strong>email (string):</strong> Email adresa korisnika. (Obavezno)</li>
+                <li><strong>lozinka (string):</strong> Lozinka korisnika. (Obavezno)</li>
+                <li><strong>uloga (string):</strong> Uloga korisnika. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Korisnik uspešno dodat.</li>
+                <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja korisnika.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+POST /api/korisnik HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "ime": "Marko",
+    "prezime": "Marković",
+    "email": "marko@example.com",
+    "lozinka": "lozinka123",
+    "uloga": "admin"
+}
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Korisnik uspešno dodat"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>2. Ažuriranje korisnika</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+            <p><strong>Metoda:</strong> PUT</p>
+            <p><strong>Opis:</strong> Ova funkcija ažurira podatke o korisniku na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator korisnika. (Obavezno)</li>
+            </ul>
+            <h4>Telo zahteva (Body):</h4>
+            <ul>
+                <li><strong>ime (string):</strong> Novo ime korisnika. (Opcionalno)</li>
+                <li><strong>prezime (string):</strong> Novo prezime korisnika. (Opcionalno)</li>
+                <li><strong>email (string):</strong> Novi email korisnika. (Opcionalno)</li>
+                <li><strong>lozinka (string):</strong> Nova lozinka korisnika. (Opcionalno)</li>
+                <li><strong>uloga (string):</strong> Nova uloga korisnika. (Opcionalno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Korisnik uspešno ažuriran.</li>
+                <li><strong>400 Bad Request:</strong> Nevalidan unos.</li>
+                <li><strong>500 Internal Server Error:</strong> Greška prilikom ažuriranja korisnika.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+PUT /api/korisnik/1 HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "ime": "NovoIme",
+    "prezime": "NovoPrezime",
+    "email": "noviEmail@example.com",
+    "lozinka": "novaLozinka123",
+    "uloga": "korisnik"
+}
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Korisnik uspešno ažuriran."
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>3. Brisanje korisnika</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+            <p><strong>Metoda:</strong> DELETE</p>
+            <p><strong>Opis:</strong> Ova funkcija briše korisnika na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator korisnika. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Korisnik uspešno obrisan.</li>
+                <li><strong>400 Bad Request:</strong> Greška prilikom brisanja korisnika.</li>
+                <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+DELETE /api/korisnik/1 HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Korisnik uspešno obrisan"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>4. Login korisnika</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnik/login</code></p>
+            <p><strong>Metoda:</strong> POST</p>
+            <p><strong>Opis:</strong> Ova funkcija proverava kredencijale korisnika i vraća podatke o korisniku ako su ispravni.</p>
+            <h4>Telo zahteva (Body):</h4>
+            <ul>
+                <li><strong>email (string):</strong> Email adresa korisnika. (Obavezno)</li>
+                <li><strong>lozinka (string):</strong> Lozinka korisnika. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešna prijava. Vraća podatke o korisniku.</li>
+                <li><strong>401 Unauthorized:</strong> Neispravni kredencijali.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+POST /api/korisnik/login HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "email": "marko@example.com",
+    "lozinka": "lozinka123"
+}
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "id": 1,
+    "ime": "Marko",
+    "prezime": "Marković",
+    "email": "marko@example.com",
+    "uloga": "admin"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>5. Prikaz korisnika po ID-u</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+            <p><strong>Metoda:</strong> GET</p>
+            <p><strong>Opis:</strong> Ova funkcija vraća podatke o korisniku na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator korisnika. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešno vraćeni podaci o korisniku.</li>
+                <li><strong>404 Not Found:</strong> Korisnik nije pronađen.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+GET /api/korisnik/1 HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "id": 1,
+    "ime": "Marko",
+    "prezime": "Marković",
+    "email": "marko@example.com",
+    "uloga": "admin"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>6. Prikaz svih korisnika</h3>
+            <p><strong>Endpoint:</strong> <code>/api/korisnici</code></p>
+            <p><strong>Metoda:</strong> GET</p>
+            <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim korisnicima u bazi podataka.</p>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim korisnicima.</li>
+                <li><strong>404 Not Found:</strong> Nema dostupnih korisnika.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+GET /api/korisnici HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+[
+    {
+        "id": 1,
+        "ime": "Marko",
+        "prezime": "Marković",
+        "email": "marko@example.com",
+        "uloga": "admin"
+    },
+    {
+        "id": 2,
+        "ime": "Jelena",
+        "prezime": "Janković",
+        "email": "jelena@example.com",
+        "uloga": "korisnik"
+    }
+]
+            </pre>
+        </div>
+
+        <h2>Grupa: Klijent</h2>
+
+        <div class="endpoint">
+            <h3>1. Dodavanje klijenta</h3>
+            <p><strong>Endpoint:</strong> <code>/api/klijent</code></p>
+            <p><strong>Metoda:</strong> POST</p>
+            <p><strong>Opis:</strong> Ova funkcija dodaje novog klijenta u bazu podataka.</p>
+            <h4>Telo zahteva (Body):</h4>
+            <ul>
+                <li><strong>naziv (string):</strong> Naziv klijenta. (Obavezno)</li>
+                <li><strong>adresa (string):</strong> Adresa klijenta. (Obavezno)</li>
+                <li><strong>telefon (string):</strong> Broj telefona klijenta. (Obavezno)</li>
+                <li><strong>email (string):</strong> Email adresa klijenta. (Obavezno)</li>
+                <li><strong>status (string):</strong> Status klijenta. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Klijent uspešno dodat.</li>
+                <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja klijenta.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+POST /api/klijent HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "naziv": "Example Company",
+    "adresa": "Example Street 123",
+    "telefon": "123456789",
+    "email": "example@example.com",
+    "status": "aktivan"
+}
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Klijent uspešno dodat"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>2. Ažuriranje klijenta</h3>
+            <p><strong>Endpoint:</strong> <code>/api/klijent/{id}</code></p>
+            <p><strong>Metoda:</strong> PUT</p>
+            <p><strong>Opis:</strong> Ova funkcija ažurira podatke o klijentu na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator klijenta. (Obavezno)</li>
+            </ul>
+            <h4>Telo zahteva (Body):</h4>
+            <ul>
+                <li><strong>naziv (string):</strong> Novi naziv klijenta. (Opcionalno)</li>
+                <li><strong>adresa (string):</strong> Nova adresa klijenta. (Opcionalno)</li>
+                <li><strong>telefon (string):</strong> Novi broj telefona klijenta. (Opcionalno)</li>
+                <li><strong>email (string):</strong> Novi email klijenta. (Opcionalno)</li>
+                <li><strong>status (string):</strong> Novi status klijenta. (Opcionalno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Klijent uspešno ažuriran.</li>
+                <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja klijenta.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+PUT /api/klijent/1 HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "naziv": "Novi Naziv",
+    "adresa": "Nova Adresa 456",
+    "telefon": "987654321",
+    "email": "noviEmail@example.com",
+    "status": "neaktivan"
+}
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Klijent uspešno ažuriran"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>3. Brisanje klijenta</h3>
+            <p><strong>Endpoint:</strong> <code>/api/klijent/{id}</code></p>
+            <p><strong>Metoda:</strong> DELETE</p>
+            <p><strong>Opis:</strong> Ova funkcija briše klijenta na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator klijenta. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Klijent uspešno obrisan.</li>
+                <li><strong>400 Bad Request:</strong> Greška prilikom brisanja klijenta.</li>
+                <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+DELETE /api/klijent/1 HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "message": "Klijent uspešno obrisan"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>4. Prikaz klijenta po ID-u</h3>
+            <p><strong>Endpoint:</strong> <code>/api/klijent/{id}</code></p>
+            <p><strong>Metoda:</strong> GET</p>
+            <p><strong>Opis:</strong> Ova funkcija vraća podatke o klijentu na osnovu njegovog ID-a.</p>
+            <h4>Parametri:</h4>
+            <ul>
+                <li><strong>id (int):</strong> Jedinstveni identifikator klijenta. (Obavezno)</li>
+            </ul>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešno vraćeni podaci o klijentu.</li>
+                <li><strong>404 Not Found:</strong> Klijent nije pronađen.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+GET /api/klijent/1 HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+{
+    "id": 1,
+    "naziv": "Example Company",
+    "adresa": "Example Street 123",
+    "telefon": "123456789",
+    "email": "example@example.com",
+    "status": "aktivan"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>5. Prikaz svih klijenata</h3>
+            <p><strong>Endpoint:</strong> <code>/api/klijenti</code></p>
+            <p><strong>Metoda:</strong> GET</p>
+            <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim klijentima u bazi podataka.</p>
+            <h4>Odgovori:</h4>
+            <ul>
+                <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim klijentima.</li>
+                <li><strong>404 Not Found:</strong> Nema dostupnih klijenata.</li>
+            </ul>
+            <h4>Primer korišćenja:</h4>
+            <pre class="code-example">
+GET /api/klijenti HTTP/1.1
+Host: [domen]
+            </pre>
+            <h4>Odgovor:</h4>
+            <pre class="code-example">
+[
+    {
+        "id": 1,
+        "naziv": "Example Company",
+        "adresa": "Example Street 123",
+        "telefon": "123456789",
+        "email": "example@example.com",
+        "status": "aktivan"
+    },
+    {
+        "id": 2,
+        "naziv": "Another Company",
+        "adresa": "Another Street 456",
+        "telefon": "987654321",
+        "email": "another@example.com",
+        "status": "neaktivan"
+    }
+]
+            </pre>
+        </div>
+
+        <!-- Grupa: Solarne Elektrane -->
+<h2>Grupa: Solarne Elektrane</h2>
+
+<div class="endpoint">
+    <h3>1. Dodavanje solarne elektrane</h3>
+    <p><strong>Endpoint:</strong> <code>/api/solarna-elektrana</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija dodaje novu solarnu elektranu u bazu podataka.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>nazivElektrane (string):</strong> Naziv solarne elektrane. (Obavezno)</li>
+        <li><strong>nazivKlijenta (string):</strong> Naziv klijenta. (Obavezno)</li>
+        <li><strong>lokacija (string):</strong> Lokacija solarne elektrane. (Obavezno)</li>
+        <li><strong>pozicijaPanela (string):</strong> Pozicija panela. (Obavezno)</li>
+        <li><strong>snagaAC (decimal):</strong> Snaga AC. (Obavezno)</li>
+        <li><strong>snagaDC (decimal):</strong> Snaga DC. (Obavezno)</li>
+        <li><strong>brojPanela (int):</strong> Broj panela. (Obavezno)</li>
+        <li><strong>datumInstalacije (DateTime):</strong> Datum instalacije. (Obavezno)</li>
+        <li><strong>vrstaPanela (string):</strong> Vrsta panela. (Obavezno)</li>
+        <li><strong>vrstaInvertora (string):</strong> Vrsta invertora. (Obavezno)</li>
+        <li><strong>klijentID (int):</strong> ID klijenta. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Solarna elektrana uspešno dodata.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja solarne elektrane.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/solarna-elektrana HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "nazivElektrane": "Solarna Elektrana A",
+    "nazivKlijenta": "Klijent A",
+    "lokacija": "Lokacija A",
+    "pozicijaPanela": "Jugoistok",
+    "snagaAC": "500.5",
+    "snagaDC": "550.75",
+    "brojPanela": 100,
+    "datumInstalacije": "2024-08-22",
+    "vrstaPanela": "Monokristalni",
+    "vrstaInvertora": "Inverter X",
+    "klijentID": 1
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Solarna elektrana uspešno dodata"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>2. Ažuriranje solarne elektrane</h3>
+    <p><strong>Endpoint:</strong> <code>/api/solarna-elektrana/{id}</code></p>
+    <p><strong>Metoda:</strong> PUT</p>
+    <p><strong>Opis:</strong> Ova funkcija ažurira podatke o solarnoj elektrani na osnovu njenog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>nazivElektrane (string):</strong> Novi naziv solarne elektrane. (Opcionalno)</li>
+        <li><strong>nazivKlijenta (string):</strong> Novi naziv klijenta. (Opcionalno)</li>
+        <li><strong>lokacija (string):</strong> Nova lokacija solarne elektrane. (Opcionalno)</li>
+        <li><strong>pozicijaPanela (string):</strong> Nova pozicija panela. (Opcionalno)</li>
+        <li><strong>snagaAC (decimal):</strong> Nova snaga AC. (Opcionalno)</li>
+        <li><strong>snagaDC (decimal):</strong> Nova snaga DC. (Opcionalno)</li>
+        <li><strong>brojPanela (int):</strong> Novi broj panela. (Opcionalno)</li>
+        <li><strong>datumInstalacije (DateTime):</strong> Novi datum instalacije. (Opcionalno)</li>
+        <li><strong>vrstaPanela (string):</strong> Nova vrsta panela. (Opcionalno)</li>
+        <li><strong>vrstaInvertora (string):</strong> Nova vrsta invertora. (Opcionalno)</li>
+        <li><strong>klijentID (int):</strong> Novi ID klijenta. (Opcionalno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Solarna elektrana uspešno ažurirana.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja solarne elektrane.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+PUT /api/solarna-elektrana/1 HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "nazivElektrane": "Novi Naziv Elektrane",
+    "nazivKlijenta": "Novi Klijent",
+    "lokacija": "Nova Lokacija",
+    "pozicijaPanela": "Jugozapad",
+    "snagaAC": "600.6",
+    "snagaDC": "660.9",
+    "brojPanela": 120,
+    "datumInstalacije": "2024-09-01",
+    "vrstaPanela": "Polikristalni",
+    "vrstaInvertora": "Inverter Y",
+    "klijentID": 2
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Solarna elektrana uspešno ažurirana"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>3. Brisanje solarne elektrane</h3>
+    <p><strong>Endpoint:</strong> <code>/api/solarna-elektrana/{id}</code></p>
+    <p><strong>Metoda:</strong> DELETE</p>
+    <p><strong>Opis:</strong> Ova funkcija briše solarnu elektranu na osnovu njenog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Solarna elektrana uspešno obrisana.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom brisanja solarne elektrane.</li>
+        <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+DELETE /api/solarna-elektrana/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Solarna elektrana uspešno obrisana"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>4. Prikaz solarne elektrane po ID-u</h3>
+    <p><strong>Endpoint:</strong> <code>/api/solarna-elektrana/{id}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o solarnoj elektrani na osnovu njenog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o solarnoj elektrani.</li>
+        <li><strong>404 Not Found:</strong> Solarna elektrana nije pronađena.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/solarna-elektrana/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "id": 1,
+    "nazivElektrane": "Solarna Elektrana A",
+    "nazivKlijenta": "Klijent A",
+    "lokacija": "Lokacija A",
+    "pozicijaPanela": "Jugoistok",
+    "snagaAC": "500.5",
+    "snagaDC": "550.75",
+    "brojPanela": 100,
+    "datumInstalacije": "2024-08-22",
+    "vrstaPanela": "Monokristalni",
+    "vrstaInvertora": "Inverter X",
+    "klijentID": 1
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>5. Prikaz svih solarnih elektrana</h3>
+    <p><strong>Endpoint:</strong> <code>/api/solarne-elektrane</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim solarnim elektranama u bazi podataka.</p>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim solarnim elektranama.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupnih solarnih elektrana.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/solarne-elektrane HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "nazivElektrane": "Solarna Elektrana A",
+        "nazivKlijenta": "Klijent A",
+        "lokacija": "Lokacija A",
+        "pozicijaPanela": "Jugoistok",
+        "snagaAC": "500.5",
+        "snagaDC": "550.75",
+        "brojPanela": 100,
+        "datumInstalacije": "2024-08-22",
+        "vrstaPanela": "Monokristalni",
+        "vrstaInvertora": "Inverter X",
+        "klijentID": 1
+    },
+    {
+        "id": 2,
+        "nazivElektrane": "Solarna Elektrana B",
+        "nazivKlijenta": "Klijent B",
+        "lokacija": "Lokacija B",
+        "pozicijaPanela": "Jugozapad",
+        "snagaAC": "600.6",
+        "snagaDC": "660.9",
+        "brojPanela": 120,
+        "datumInstalacije": "2024-09-01",
+        "vrstaPanela": "Polikristalni",
+        "vrstaInvertora": "Inverter Y",
+        "klijentID": 2
+    }
+]
+    </pre>
+</div>
+<!-- Grupa: Radni Nalozi -->
+<h2>Grupa: Radni Nalozi</h2>
+
+<div class="endpoint">
+    <h3>1. Dodavanje radnog naloga</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalog</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija dodaje novi radni nalog u bazu podataka.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>opisRadova (string):</strong> Opis radova. (Obavezno)</li>
+        <li><strong>izvrsilac (string):</strong> Izvršilac radova. (Obavezno)</li>
+        <li><strong>status (string):</strong> Status radnog naloga. (Obavezno)</li>
+        <li><strong>elektranaID (int):</strong> ID solarne elektrane. (Obavezno)</li>
+        <li><strong>klijentID (int):</strong> ID klijenta. (Obavezno)</li>
+        <li><strong>garancija (DateTime?):</strong> Datum isteka garancije. (Opcionalno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Radni nalog uspešno dodat.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja radnog naloga.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/radni-nalog HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "opisRadova": "Instalacija panela",
+    "izvrsilac": "Marko Marković",
+    "status": "U toku",
+    "elektranaID": 1,
+    "klijentID": 1,
+    "garancija": "2025-08-22"
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Radni nalog uspešno dodat"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>2. Ažuriranje radnog naloga</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalog/{id}</code></p>
+    <p><strong>Metoda:</strong> PUT</p>
+    <p><strong>Opis:</strong> Ova funkcija ažurira podatke o radnom nalogu na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator radnog naloga. (Obavezno)</li>
+    </ul>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>datumKreiranja (DateTime?):</strong> Datum kreiranja radnog naloga. (Opcionalno)</li>
+        <li><strong>opisRadova (string):</strong> Opis radova. (Opcionalno)</li>
+        <li><strong>izvrsilac (string):</strong> Izvršilac radova. (Opcionalno)</li>
+        <li><strong>status (string):</strong> Status radnog naloga. (Opcionalno)</li>
+        <li><strong>elektranaID (int):</strong> ID solarne elektrane. (Opcionalno)</li>
+        <li><strong>klijentID (int):</strong> ID klijenta. (Opcionalno)</li>
+        <li><strong>garancija (DateTime?):</strong> Datum isteka garancije. (Opcionalno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Radni nalog uspešno ažuriran.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja radnog naloga.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+PUT /api/radni-nalog/1 HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "opisRadova": "Zamena invertera",
+    "status": "Završeno"
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Radni nalog uspešno ažuriran"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>3. Brisanje radnog naloga</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalog/{id}</code></p>
+    <p><strong>Metoda:</strong> DELETE</p>
+    <p><strong>Opis:</strong> Ova funkcija briše radni nalog na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator radnog naloga. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Radni nalog uspešno obrisan.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom brisanja radnog naloga.</li>
+        <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+DELETE /api/radni-nalog/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Radni nalog uspešno obrisan"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>4. Prikaz radnog naloga po ID-u</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalog/{id}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o radnom nalogu na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator radnog naloga. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o radnom nalogu.</li>
+        <li><strong>404 Not Found:</strong> Radni nalog nije pronađen.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/radni-nalog/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "id": 1,
+    "opisRadova": "Instalacija panela",
+    "izvrsilac": "Marko Marković",
+    "status": "U toku",
+    "elektranaID": 1,
+    "klijentID": 1,
+    "garancija": "2025-08-22"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>5. Prikaz svih radnih naloga</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalozi</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim radnim nalozima u bazi podataka.</p>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim radnim nalozima.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupnih radnih naloga.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/radni-nalozi HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "opisRadova": "Instalacija panela",
+        "izvrsilac": "Marko Marković",
+        "status": "U toku",
+        "elektranaID": 1,
+        "klijentID": 1,
+        "garancija": "2025-08-22"
+    },
+    {
+        "id": 2,
+        "opisRadova": "Zamena invertera",
+        "izvrsilac": "Jelena Janković",
+        "status": "Završeno",
+        "elektranaID": 2,
+        "klijentID": 2,
+        "garancija": null
+    }
+]
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>6. Prikaz radnih naloga po elektrani</h3>
+    <p><strong>Endpoint:</strong> <code>/api/radni-nalozi/{elektranaID}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim radnim nalozima za određenu solarnu elektranu.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>elektranaID (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o radnim nalozima.</li>
+        <li><strong>404 Not Found:</strong> Nema radnih naloga za ovu elektranu.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/radni-nalozi/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "opisRadova": "Instalacija panela",
+        "izvrsilac": "Marko Marković",
+        "status": "U toku",
+        "elektranaID": 1,
+        "klijentID": 1,
+        "garancija": "2025-08-22"
+    }
+]
+    </pre>
+</div>
+
+<!-- Grupa: Oprema -->
+<h2>Grupa: Oprema</h2>
+
+<div class="endpoint">
+    <h3>1. Dodavanje opreme</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija dodaje novu opremu u bazu podataka.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>nazivOpreme (string):</strong> Naziv opreme. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Oprema uspešno dodata.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja opreme.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/oprema HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "nazivOpreme": "Inverter X"
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Oprema uspešno dodata"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>2. Povezivanje opreme sa solarnom elektranom</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema/povezi</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija povezuje opremu sa solarnom elektranom.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>opremaID (int):</strong> ID opreme. (Obavezno)</li>
+        <li><strong>elektranaID (int):</strong> ID solarne elektrane. (Obavezno)</li>
+        <li><strong>serijskiBroj (string):</strong> Serijski broj opreme. (Obavezno)</li>
+        <li><strong>datumInstalacije (DateTime):</strong> Datum instalacije opreme. (Obavezno)</li>
+        <li><strong>garancijaDo (DateTime?):</strong> Datum isteka garancije. (Opcionalno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Oprema uspešno povezana sa solarnom elektranom.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom povezivanja opreme sa solarnom elektranom.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/oprema/povezi HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "opremaID": 1,
+    "elektranaID": 2,
+    "serijskiBroj": "SN123456",
+    "datumInstalacije": "2024-08-22",
+    "garancijaDo": "2026-08-22"
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Oprema uspešno povezana sa solarnom elektranom"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>3. Ažuriranje podataka o opremi</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema/{opremaID}/elektrana/{elektranaID}</code></p>
+    <p><strong>Metoda:</strong> PUT</p>
+    <p><strong>Opis:</strong> Ova funkcija ažurira podatke o opremi povezanoj sa solarnom elektranom.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>opremaID (int):</strong> Jedinstveni identifikator opreme. (Obavezno)</li>
+        <li><strong>elektranaID (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>serijskiBroj (string):</strong> Novi serijski broj opreme. (Opcionalno)</li>
+        <li><strong>datumInstalacije (DateTime?):</strong> Novi datum instalacije opreme. (Opcionalno)</li>
+        <li><strong>garancijaDo (DateTime?):</strong> Novi datum isteka garancije. (Opcionalno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Podaci o opremi uspešno ažurirani.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja podataka o opremi.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+PUT /api/oprema/1/elektrana/2 HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "serijskiBroj": "SN654321",
+    "datumInstalacije": "2024-09-01",
+    "garancijaDo": "2027-09-01"
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Podaci o opremi uspešno ažurirani"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>4. Brisanje opreme</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema/{opremaID}/elektrana/{elektranaID}</code></p>
+    <p><strong>Metoda:</strong> DELETE</p>
+    <p><strong>Opis:</strong> Ova funkcija briše opremu na osnovu njenog ID-a i ID-a solarne elektrane.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>opremaID (int):</strong> Jedinstveni identifikator opreme. (Obavezno)</li>
+        <li><strong>elektranaID (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Oprema uspešno obrisana.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom brisanja opreme.</li>
+        <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+DELETE /api/oprema/1/elektrana/2 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Oprema uspešno obrisana"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>5. Prikaz sve opreme</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svoj opremi u bazi podataka.</p>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svoj opremi.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupne opreme.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/oprema HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "nazivOpreme": "Inverter X"
+    },
+    {
+        "id": 2,
+        "nazivOpreme": "Panel Y"
+    }
+]
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>6. Prikaz opreme po elektrana ID-u</h3>
+    <p><strong>Endpoint:</strong> <code>/api/oprema/elektrana/{elektranaID}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o opremi za određenu solarnu elektranu.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>elektranaID (int):</strong> Jedinstveni identifikator solarne elektrane. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o opremi.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupne opreme za ovu elektranu.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/oprema/elektrana/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "opremaID": 1,
+        "nazivOpreme": "Inverter X",
+        "serijskiBroj": "SN123456",
+        "datumInstalacije": "2024-08-22",
+        "garancijaDo": "2026-08-22"
+    }
+]
+    </pre>
+</div>
+
+<!-- Grupa: Primopredajni zapisnik -->
+<h2>Grupa: Primopredajni zapisnik</h2>
+
+<div class="endpoint">
+    <h3>1. Dodavanje primopredajnog zapisnika</h3>
+    <p><strong>Endpoint:</strong> <code>/api/primopredajni-zapisnik</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija dodaje novi primopredajni zapisnik u bazu podataka.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>klijentID (int):</strong> ID klijenta. (Obavezno)</li>
+        <li><strong>elektranaID (int):</strong> ID solarne elektrane. (Obavezno)</li>
+        <li><strong>dokument (string):</strong> Sadržaj dokumenta. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Primopredajni zapisnik uspešno dodat.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja primopredajnog zapisnika.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/primopredajni-zapisnik HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "klijentID": 1,
+    "elektranaID": 2,
+    "dokument": "Sadržaj primopredajnog zapisnika..."
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Primopredajni zapisnik uspešno dodat"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>2. Brisanje primopredajnog zapisnika</h3>
+    <p><strong>Endpoint:</strong> <code>/api/primopredajni-zapisnik/{id}</code></p>
+    <p><strong>Metoda:</strong> DELETE</p>
+    <p><strong>Opis:</strong> Ova funkcija briše primopredajni zapisnik na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator primopredajnog zapisnika. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Primopredajni zapisnik uspešno obrisan.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom brisanja primopredajnog zapisnika.</li>
+        <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+DELETE /api/primopredajni-zapisnik/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Primopredajni zapisnik uspešno obrisan"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>3. Prikaz primopredajnog zapisnika po ID-u</h3>
+    <p><strong>Endpoint:</strong> <code>/api/primopredajni-zapisnik/{id}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o primopredajnom zapisniku na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator primopredajnog zapisnika. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o primopredajnom zapisniku.</li>
+        <li><strong>404 Not Found:</strong> Primopredajni zapisnik nije pronađen.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/primopredajni-zapisnik/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "id": 1,
+    "klijentID": 1,
+    "elektranaID": 2,
+    "dokument": "Sadržaj primopredajnog zapisnika..."
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>4. Prikaz svih primopredajnih zapisnika</h3>
+    <p><strong>Endpoint:</strong> <code>/api/primopredajni-zapisnici</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim primopredajnim zapisnicima u bazi podataka.</p>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim primopredajnim zapisnicima.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupnih primopredajnih zapisnika.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/primopredajni-zapisnici HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "klijentID": 1,
+        "elektranaID": 2,
+        "dokument": "Sadržaj primopredajnog zapisnika..."
+    },
+    {
+        "id": 2,
+        "klijentID": 3,
+        "elektranaID": 4,
+        "dokument": "Još jedan sadržaj primopredajnog zapisnika..."
+    }
+]
+    </pre>
+</div>
+
+
+<!-- Grupa: Dokument -->
+<h2>Grupa: Dokument</h2>
+
+<div class="endpoint">
+    <h3>1. Dodavanje dokumenta</h3>
+    <p><strong>Endpoint:</strong> <code>/api/dokument</code></p>
+    <p><strong>Metoda:</strong> POST</p>
+    <p><strong>Opis:</strong> Ova funkcija dodaje novi dokument u bazu podataka.</p>
+    <h4>Telo zahteva (Body):</h4>
+    <ul>
+        <li><strong>naziv (string):</strong> Naziv dokumenta. (Obavezno)</li>
+        <li><strong>sadrzaj (string):</strong> Sadržaj dokumenta kodiran u Base64. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Dokument uspešno dodat.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom dodavanja dokumenta.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+POST /api/dokument HTTP/1.1
+Host: [domen]
+Content-Type: application/json
+
+{
+    "naziv": "Dokument1",
+    "sadrzaj": "U29tZSBjb250ZW50IGhlcmU="  <!-- Base64 encoded content -->
+}
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Dokument uspešno dodat"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>2. Brisanje dokumenta</h3>
+    <p><strong>Endpoint:</strong> <code>/api/dokument/{id}</code></p>
+    <p><strong>Metoda:</strong> DELETE</p>
+    <p><strong>Opis:</strong> Ova funkcija briše dokument na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator dokumenta. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Dokument uspešno obrisan.</li>
+        <li><strong>400 Bad Request:</strong> Greška prilikom brisanja dokumenta.</li>
+        <li><strong>500 Internal Server Error:</strong> Došlo je do greške.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+DELETE /api/dokument/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "message": "Dokument uspešno obrisan"
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>3. Prikaz dokumenta po ID-u</h3>
+    <p><strong>Endpoint:</strong> <code>/api/dokument/{id}</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o dokumentu na osnovu njegovog ID-a.</p>
+    <h4>Parametri:</h4>
+    <ul>
+        <li><strong>id (int):</strong> Jedinstveni identifikator dokumenta. (Obavezno)</li>
+    </ul>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o dokumentu.</li>
+        <li><strong>404 Not Found:</strong> Dokument nije pronađen.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/dokument/1 HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+{
+    "id": 1,
+    "naziv": "Dokument1",
+    "sadrzaj": "U29tZSBjb250ZW50IGhlcmU="  <!-- Base64 encoded content -->
+}
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3>4. Prikaz svih dokumenata</h3>
+    <p><strong>Endpoint:</strong> <code>/api/dokumenti</code></p>
+    <p><strong>Metoda:</strong> GET</p>
+    <p><strong>Opis:</strong> Ova funkcija vraća podatke o svim dokumentima u bazi podataka.</p>
+    <h4>Odgovori:</h4>
+    <ul>
+        <li><strong>200 OK:</strong> Uspešno vraćeni podaci o svim dokumentima.</li>
+        <li><strong>404 Not Found:</strong> Nema dostupnih dokumenata.</li>
+    </ul>
+    <h4>Primer korišćenja:</h4>
+    <pre class="code-example">
+GET /api/dokumenti HTTP/1.1
+Host: [domen]
+    </pre>
+    <h4>Odgovor:</h4>
+    <pre class="code-example">
+[
+    {
+        "id": 1,
+        "naziv": "Dokument1",
+        "sadrzaj": "U29tZSBjb250ZW50IGhlcmU="
+    },
+    {
+        "id": 2,
+        "naziv": "Dokument2",
+        "sadrzaj": "QW5vdGhlciBjb250ZW50IGhlcmU="
+    }
+]
+    </pre>
+</div>
+
+
+
+
+
+    </div>
+</body>
+
+</html>
