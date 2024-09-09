@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSE API Dokumentacija - Klijent</title>
+    <title>SSE API Dokumentacija</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,6 +13,9 @@
         }
         h1, h2 {
             color: #333;
+        }
+        .entity-section {
+            margin-bottom: 40px;
         }
         .endpoint {
             background-color: #fff;
@@ -58,180 +61,286 @@
 </head>
 <body>
 
-    <h1>SSE API Dokumentacija - Entitet: Klijent</h1>
-    <p>Ova dokumentacija opisuje različite API rute koje omogućavaju rad sa entitetom "Klijent". U nastavku su detalji za dodavanje, ažuriranje, brisanje i dodavanje slike klijenta.</p>
+    <h1>SSE API Dokumentacija</h1>
+    <p>Ova dokumentacija pokriva različite API rute za rad sa različitim entitetima. Odaberite entitet kako biste videli detalje o dostupnim API rutama.</p>
 
-    <!-- POST: Dodavanje klijenta -->
-    <div class="endpoint">
-        <h3>POST: Dodavanje klijenta</h3>
-        <p><span class="method">POST</span> /api/klijent</p>
-        <p>Ova ruta služi za dodavanje novog klijenta u sistem.</p>
-        <h4>Obavezni parametri:</h4>
-        <table>
-            <tr><th>Naziv parametra</th><th>Tip</th><th>Opis</th></tr>
-            <tr><td><span class="required">ime</span></td><td>string</td><td>Ime klijenta</td></tr>
-            <tr><td><span class="required">prezime</span></td><td>string</td><td>Prezime klijenta</td></tr>
-            <tr><td><span class="required">brojTelefona</span></td><td>string</td><td>Broj telefona klijenta</td></tr>
-            <tr><td><span class="required">email</span></td><td>string</td><td>Email adresa klijenta</td></tr>
-            <tr><td><span class="required">adresa</span></td><td>string</td><td>Adresa klijenta</td></tr>
-        </table>
+    <h1>Korisnik API Documentation</h1>
 
-        <h4>Opcionalni parametri:</h4>
-        <table>
-            <tr><th>Naziv parametra</th><th>Tip</th><th>Opis</th></tr>
-            <tr><td>naziv</td><td>string</td><td>Naziv firme</td></tr>
-            <tr><td>zipKod</td><td>string</td><td>Poštanski broj</td></tr>
-            <tr><td>pib</td><td>string</td><td>PIB firme</td></tr>
-            <tr><td>maticniBroj</td><td>string</td><td>Matični broj firme</td></tr>
-            <tr><td>firmaUlica</td><td>string</td><td>Ulica firme</td></tr>
-            <tr><td>firmaGrad</td><td>string</td><td>Grad firme</td></tr>
-            <tr><td>firmaZemlja</td><td>string</td><td>Zemlja firme</td></tr>
-            <tr><td>firmaPostanskiBroj</td><td>string</td><td>Poštanski broj firme</td></tr>
-            <tr><td>firmaOpstina</td><td>string</td><td>Opština firme</td></tr>
-            <tr><td>kontaktIme</td><td>string</td><td>Ime kontakt osobe</td></tr>
-            <tr><td>kontaktPrezime</td><td>string</td><td>Prezime kontakt osobe</td></tr>
-            <tr><td>kontaktTitula</td><td>string</td><td>Titula kontakt osobe</td></tr>
-            <tr><td>brojTelefona1</td><td>string</td><td>Dodatni broj telefona 1</td></tr>
-            <tr><td>brojTelefona2</td><td>string</td><td>Dodatni broj telefona 2</td></tr>
-            <tr><td>sifraDelatnosti</td><td>string</td><td>Šifra delatnosti firme</td></tr>
-            <tr><td>opisDelatnosti</td><td>string</td><td>Opis delatnosti firme</td></tr>
-            <tr><td>napomena</td><td>string</td><td>Napomena o klijentu</td></tr>
-        </table>
+    <h2>POST: Dodavanje korisnika</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik</code></p>
+    <p><strong>Method:</strong> POST</p>
+    <p>Dodaje novog korisnika sa obaveznim parametrima.</p>
+    
+    <h3>Request Body:</h3>
+    <pre>
+    {
+      "ime": "string",
+      "prezime": "string",
+      "email": "string",
+      "lozinka": "string",
+      "uloga": "string"
+    }
+    </pre>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Korisnik uspešno dodat</li>
+      <li><strong>400 Bad Request:</strong> Sva polja su obavezna i ne smeju biti prazna.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>POST: Dodavanje slike korisnika</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik/slika</code></p>
+    <p><strong>Method:</strong> POST</p>
+    <p>Dodaje sliku korisnika sa validacijom i kompresijom.</p>
+    
+    <h3>Form Data:</h3>
+    <ul>
+      <li><strong>korisnikID:</strong> integer (obavezno)</li>
+      <li><strong>slika:</strong> file (JPG, JPEG, PNG - obavezno)</li>
+    </ul>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Slika uspešno dodata.</li>
+      <li><strong>400 Bad Request:</strong> Nevalidan korisnik ID ili nevažeći format slike.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>PUT: Ažuriranje korisnika</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+    <p><strong>Method:</strong> PUT</p>
+    <p>Ažurira podatke korisnika sa opcionalnim parametrima.</p>
+    
+    <h3>Request Body (optional fields):</h3>
+    <pre>
+    {
+      "ime": "string",
+      "prezime": "string",
+      "email": "string",
+      "lozinka": "string",
+      "uloga": "string"
+    }
+    </pre>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Korisnik uspešno ažuriran.</li>
+      <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja korisnika.</li>
+      <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>DELETE: Brisanje korisnika</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+    <p><strong>Method:</strong> DELETE</p>
+    <p>Briše korisnika po ID-u.</p>
+    
+    <h3>Path Parameter:</h3>
+    <ul>
+      <li><strong>id:</strong> integer (obavezno)</li>
+    </ul>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Korisnik uspešno obrisan.</li>
+      <li><strong>400 Bad Request:</strong> Greška prilikom brisanja korisnika.</li>
+      <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>GET: Prikaz svih korisnika sa slikama</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnici</code></p>
+    <p><strong>Method:</strong> GET</p>
+    <p>Prikazuje sve korisnike sa podacima o slici u Base64 formatu.</p>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Lista korisnika sa slikama u Base64 formatu.</li>
+      <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>POST: Login korisnika</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik/login</code></p>
+    <p><strong>Method:</strong> POST</p>
+    <p>Autentifikuje korisnika putem emaila i lozinke.</p>
+    
+    <h3>Request Body:</h3>
+    <pre>
+    {
+      "email": "string",
+      "lozinka": "string"
+    }
+    </pre>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Uspješan login.</li>
+      <li><strong>401 Unauthorized:</strong> Nevažeći email ili lozinka.</li>
+    </ul>
+    
+    <hr>
+    
+    <h2>GET: Prikaz korisnika po ID-u</h2>
+    <p><strong>Endpoint:</strong> <code>/api/korisnik/{id}</code></p>
+    <p><strong>Method:</strong> GET</p>
+    <p>Prikazuje podatke o korisniku po ID-u.</p>
+    
+    <h3>Path Parameter:</h3>
+    <ul>
+      <li><strong>id:</strong> integer (obavezno)</li>
+    </ul>
+    
+    <h3>Responses:</h3>
+    <ul>
+      <li><strong>200 OK:</strong> Detalji korisnika.</li>
+      <li><strong>404 Not Found:</strong> Korisnik nije pronađen.</li>
+      <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+    </ul>
+    
 
-        <h4>Primer:</h4>
-        <div class="code">
-POST /api/klijent
+
+
+
+    <h1>Klijent API Documentation</h1>
+
+<h2>POST: Dodavanje klijenta</h2>
+<p><strong>Endpoint:</strong> <code>/api/klijent</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Dodaje novog klijenta sa obaveznim i opcionalnim parametrima.</p>
+
+<h3>Request Body:</h3>
+<pre>
 {
-    "ime": "Marko",
-    "prezime": "Marković",
-    "brojTelefona": "060123456",
-    "email": "marko@mail.com",
-    "adresa": "Ulica 123",
-    "naziv": "Marko doo",
-    "pib": "123456789"
+  "ime": "string",
+  "prezime": "string",
+  "brojTelefona": "string",
+  "email": "string",
+  "adresa": "string",
+  "naziv": "string (optional)",
+  "zipKod": "string (optional)",
+  "pib": "string (optional)",
+  "maticniBroj": "string (optional)",
+  "firmaUlica": "string (optional)",
+  "firmaGrad": "string (optional)",
+  "firmaZemlja": "string (optional)",
+  "firmaPostanskiBroj": "string (optional)",
+  "firmaOpstina": "string (optional)",
+  "kontaktIme": "string (optional)",
+  "kontaktPrezime": "string (optional)",
+  "kontaktTitula": "string (optional)",
+  "brojTelefona1": "string (optional)",
+  "brojTelefona2": "string (optional)",
+  "sifraDelatnosti": "string (optional)",
+  "opisDelatnosti": "string (optional)",
+  "napomena": "string (optional)"
 }
-        </div>
-    </div>
+</pre>
 
-    <!-- POST: Dodavanje slike klijenta -->
-    <div class="endpoint">
-        <h3>POST: Dodavanje slike klijenta</h3>
-        <p><span class="method">POST</span> /api/klijent/{id}/slika</p>
-        <p>Ova ruta omogućava dodavanje slike za klijenta.</p>
-        <h4>Parametri:</h4>
-        <table>
-            <tr><th>Naziv parametra</th><th>Tip</th><th>Opis</th></tr>
-            <tr><td><span class="required">id</span></td><td>int</td><td>ID klijenta</td></tr>
-            <tr><td><span class="required">slika</span></td><td>file</td><td>Fajl slike (JPG, JPEG, PNG)</td></tr>
-        </table>
+<h3>Responses:</h3>
+<ul>
+  <li><strong>200 OK:</strong> Klijent uspešno dodat.</li>
+  <li><strong>400 Bad Request:</strong> Ime, prezime, broj telefona, email i adresa su obavezni.</li>
+</ul>
 
-        <h4>Primer:</h4>
-        <div class="code">
-POST /api/klijent/1/slika
+<hr>
+
+<h2>POST: Dodavanje slike klijenta</h2>
+<p><strong>Endpoint:</strong> <code>/api/klijent/{id}/slika</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Dodaje sliku klijenta sa validacijom i kompresijom.</p>
+
+<h3>Form Data:</h3>
+<ul>
+  <li><strong>slika:</strong> file (JPG, JPEG, PNG - obavezno)</li>
+</ul>
+
+<h3>Responses:</h3>
+<ul>
+  <li><strong>200 OK:</strong> Slika uspešno dodata.</li>
+  <li><strong>400 Bad Request:</strong> Nevažeći format slike ili greška u zahtevu.</li>
+</ul>
+
+<hr>
+
+<h2>PUT: Ažuriranje klijenta</h2>
+<p><strong>Endpoint:</strong> <code>/api/klijent/{id}</code></p>
+<p><strong>Method:</strong> PUT</p>
+<p>Ažurira podatke klijenta sa opcionalnim parametrima.</p>
+
+<h3>Request Body (optional fields):</h3>
+<pre>
 {
-    "slika": [binary data]
+  "ime": "string (optional)",
+  "prezime": "string (optional)",
+  "brojTelefona": "string (optional)",
+  "email": "string (optional)",
+  "naziv": "string (optional)",
+  "adresa": "string (optional)",
+  "zipKod": "string (optional)",
+  "pib": "string (optional)",
+  "maticniBroj": "string (optional)",
+  "firmaUlica": "string (optional)",
+  "firmaGrad": "string (optional)",
+  "firmaZemlja": "string (optional)",
+  "firmaPostanskiBroj": "string (optional)",
+  "firmaOpstina": "string (optional)",
+  "kontaktIme": "string (optional)",
+  "kontaktPrezime": "string (optional)",
+  "kontaktTitula": "string (optional)",
+  "brojTelefona1": "string (optional)",
+  "brojTelefona2": "string (optional)",
+  "sifraDelatnosti": "string (optional)",
+  "opisDelatnosti": "string (optional)",
+  "napomena": "string (optional)"
 }
-        </div>
-    </div>
+</pre>
 
-    <!-- PUT: Ažuriranje klijenta -->
-    <div class="endpoint">
-        <h3>PUT: Ažuriranje klijenta</h3>
-        <p><span class="method">PUT</span> /api/klijent/{id}</p>
-        <p>Ova ruta služi za ažuriranje podataka klijenta. Ažuriraju se samo polja koja nisu prazna.</p>
-        <h4>Parametri:</h4>
-        <table>
-            <tr><th>Naziv parametra</th><th>Tip</th><th>Opis</th></tr>
-            <tr><td><span class="required">id</span></td><td>int</td><td>ID klijenta</td></tr>
-            <tr><td>ime</td><td>string</td><td>Ime klijenta</td></tr>
-            <tr><td>prezime</td><td>string</td><td>Prezime klijenta</td></tr>
-            <tr><td>brojTelefona</td><td>string</td><td>Broj telefona klijenta</td></tr>
-            <tr><td>email</td><td>string</td><td>Email adresa klijenta</td></tr>
-            <tr><td>naziv</td><td>string</td><td>Naziv firme</td></tr>
-            <tr><td>adresa</td><td>string</td><td>Adresa klijenta</td></tr>
-            <!-- Ostali opcionalni parametri navedeni u POST ruti -->
-        </table>
+<h3>Responses:</h3>
+<ul>
+  <li><strong>200 OK:</strong> Klijent uspešno ažuriran.</li>
+  <li><strong>400 Bad Request:</strong> Greška prilikom ažuriranja klijenta.</li>
+</ul>
 
-        <h4>Primer:</h4>
-        <div class="code">
-PUT /api/klijent/1
-{
-    "ime": "Marko",
-    "email": "novi_mail@mail.com",
-    "brojTelefona": "061234567"
-}
-        </div>
+<hr>
+
+<h2>DELETE: Brisanje klijenta</h2>
+<p><strong>Endpoint:</strong> <code>/api/klijent/{id}</code></p>
+<p><strong>Method:</strong> DELETE</p>
+<p>Briše klijenta po ID-u.</p>
+
+<h3>Path Parameter:</h3>
+<ul>
+  <li><strong>id:</strong> integer (obavezno)</li>
+</ul>
+
+<h3>Responses:</h3>
+<ul>
+  <li><strong>200 OK:</strong> Klijent uspešno obrisan.</li>
+  <li><strong>400 Bad Request:</strong> Greška prilikom brisanja klijenta.</li>
+  <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+</ul>
+
+<hr>
+
+<h2>GET: Prikaz svih klijenata</h2>
+<p><strong>Endpoint:</strong> <code>/api/klijenti</code></p>
+<p><strong>Method:</strong> GET</p>
+<p>Prikazuje sve klijente iz baze podataka.</p>
+
+<h3>Responses:</h3>
+<ul>
+  <li><strong>200 OK:</strong> Lista svih klijenata.</li>
+  <li><strong>404 Not Found:</strong> Nema dostupnih klijenata.</li>
+  <li><strong>500 Internal Server Error:</strong> Detalji greške.</li>
+</ul>
 
 
-        <h2>DELETE: Brisanje klijenta</h2>
-        <p>Ova ruta briše klijenta na osnovu njegovog ID-a.</p>
-        
-        <h3>URL:</h3>
-        <p><code>/api/klijent/{id}</code></p>
-        
-        <h3>Metoda:</h3>
-        <p>DELETE</p>
-        
-        <h3>Parametri:</h3>
-        <ul>
-            <li><strong>id (int)</strong> - ID klijenta koji treba obrisati (obavezno)</li>
-        </ul>
-        
-        <h3>Odgovor:</h3>
-        <ul>
-            <li><strong>200 OK:</strong> "Klijent uspešno obrisan."</li>
-            <li><strong>400 Bad Request:</strong> "Greška prilikom brisanja klijenta."</li>
-            <li><strong>404 Not Found:</strong> "Klijent sa datim ID-jem ne postoji."</li>
-        </ul>
-
-        
-
-        <h2>GET: Prikaz svih klijenata</h2>
-        <p>Ova ruta vraća listu svih klijenata.</p>
-        
-        <h3>URL:</h3>
-        <p><code>/api/klijenti</code></p>
-        
-        <h3>Metoda:</h3>
-        <p>GET</p>
-        
-        <h3>Odgovor:</h3>
-        <ul>
-            <li><strong>200 OK:</strong> Lista svih klijenata</li>
-            <li><strong>404 Not Found:</strong> "Nema dostupnih klijenata"</li>
-        </ul>
-        
-        <h3>Primer odgovora:</h3>
-        <pre><code>[
-          {
-            "klijentID": 1,
-            "ime": "Marko",
-            "prezime": "Marković",
-            "brojTelefona": "0612345678",
-            "email": "marko@example.com",
-            "adresa": "Ulica 1",
-            "zipKod": "11000",
-            "pib": "123456789",
-            "maticniBroj": "987654321",
-            "firmaUlica": "Firma Ulica 2",
-            "firmaGrad": "Beograd",
-            "firmaZemlja": "Srbija",
-            "firmaPostanskiBroj": "11000",
-            "firmaOpstina": "Savski venac",
-            "kontaktIme": "Jovan",
-            "kontaktPrezime": "Jovanović",
-            "kontaktTitula": "Direktor",
-            "brojTelefona1": "0651234567",
-            "brojTelefona2": "0621234567",
-            "sifraDelatnosti": "6201",
-            "opisDelatnosti": "Programiranje",
-            "napomena": "Važan klijent",
-            "slika": null,
-            "datumKreiranja": "2024-09-09T10:20:15.123"
-          }
-        ]
-        </code></pre>
-            
-    </div>
 </body>
 </html>
