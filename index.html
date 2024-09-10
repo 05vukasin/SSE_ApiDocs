@@ -342,5 +342,121 @@
 </ul>
 
 
+
+<h1>Solar Power Plants API Documentation</h1>
+
+<h2>POST: Add a Solar Power Plant</h2>
+<p>Endpoint: <code>/api/solarna-elektrana</code></p>
+<p>This endpoint allows adding a new solar power plant by sending the required data.</p>
+
+<h3>Request:</h3>
+<p><strong>Method:</strong> POST</p>
+<p><strong>URL:</strong> <code>/api/solarna-elektrana</code></p>
+
+<h4>Request Body (JSON):</h4>
+<pre>{
+"nazivElektrane": "string",
+"lokacija": "string",
+"datumInstalacije": "yyyy-mm-dd",
+"klijentID": "integer"
+}</pre>
+
+<h4>Required Fields:</h4>
+<ul>
+    <li><code>nazivElektrane</code> (string): Name of the solar power plant (required).</li>
+    <li><code>lokacija</code> (string): Location of the power plant (required).</li>
+    <li><code>datumInstalacije</code> (string, format: yyyy-mm-dd): Installation date of the power plant (required).</li>
+    <li><code>klijentID</code> (integer): Client ID associated with the power plant (required).</li>
+</ul>
+
+<h4>Responses:</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>200 OK</code></td>
+            <td>Solar power plant successfully added.</td>
+        </tr>
+        <tr>
+            <td><code>400 Bad Request</code></td>
+            <td>If any of the required fields are missing or invalid.</td>
+        </tr>
+        <tr>
+            <td><code>500 Internal Server Error</code></td>
+            <td>If an error occurs while processing the request.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>DELETE: Delete a Solar Power Plant</h2>
+<p>Endpoint: <code>/api/solarna-elektrana/{id}</code></p>
+<p>This endpoint deletes a solar power plant by its ID.</p>
+
+<h3>Request:</h3>
+<p><strong>Method:</strong> DELETE</p>
+<p><strong>URL:</strong> <code>/api/solarna-elektrana/{id}</code></p>
+<p><strong>Path Parameter:</strong></p>
+<ul>
+    <li><code>id</code> (integer): The ID of the solar power plant to be deleted (required).</li>
+</ul>
+
+<h4>Responses:</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>200 OK</code></td>
+            <td>Solar power plant successfully deleted.</td>
+        </tr>
+        <tr>
+            <td><code>400 Bad Request</code></td>
+            <td>If there is an error while deleting the power plant.</td>
+        </tr>
+        <tr>
+            <td><code>500 Internal Server Error</code></td>
+            <td>If an error occurs while processing the request.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>GET: List All Solar Power Plants</h2>
+<p>Endpoint: <code>/api/solarne-elektrane</code></p>
+<p>This endpoint retrieves a list of all available solar power plants.</p>
+
+<h3>Request:</h3>
+<p><strong>Method:</strong> GET</p>
+<p><strong>URL:</strong> <code>/api/solarne-elektrane</code></p>
+
+<h4>Responses:</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>200 OK</code></td>
+            <td>Returns a list of solar power plants. If none exist, an empty list is returned.</td>
+        </tr>
+        <tr>
+            <td><code>500 Internal Server Error</code></td>
+            <td>If an error occurs while processing the request.</td>
+        </tr>
+    </tbody>
+</table>
+
+
 </body>
 </html>
