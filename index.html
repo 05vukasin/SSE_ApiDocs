@@ -457,6 +457,119 @@
     </tbody>
 </table>
 
+<h2>Modeli Solarnih Panela</h2>
+
+<!-- POST: Dodavanje modela solarnog panela -->
+<div class="endpoint">
+    <h3>POST /api/modeliSolarniPaneli</h3>
+    <p>Dodaje novi model solarnog panela.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "nazivModela": "string",
+    "snagaKWP": "string (decimal)"
+}
+    </pre>
+    <h4>Validacija:</h4>
+    <p><strong>nazivModela</strong> i <strong>snagaKWP</strong> su obavezna polja.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model solarnog panela uspešno dodat"
+
+400 Bad Request - "Naziv modela i snagaKWP su obavezni."
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje modela solarnog panela -->
+<div class="endpoint">
+    <h3>DELETE /api/modeliSolarniPaneli/{id}</h3>
+    <p>Briše postojeći model solarnog panela prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID modela solarnog panela koji se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model solarnog panela uspešno obrisan"
+
+400 Bad Request - "Greška prilikom brisanja modela solarnog panela"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih modela solarnog panela -->
+<div class="endpoint">
+    <h3>GET /api/modeliSolarniPaneli</h3>
+    <p>Vraća listu svih modela solarnog panela.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "nazivModela": "Model A", "snagaKWP": 10.5 }, ... ]
+
+404 Not Found - "Nema dostupnih modela solarnog panela"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<h2>Solarni Paneli</h2>
+
+<!-- POST: Dodavanje solarnog panela -->
+<div class="endpoint">
+    <h3>POST /api/solarniPaneli</h3>
+    <p>Dodaje novi solarni panel.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "dobavljacID": "integer",
+    "modelID": "integer"
+}
+    </pre>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Solarni panel uspešno dodat"
+
+400 Bad Request - "Greška prilikom dodavanja solarnog panela"
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje solarnog panela -->
+<div class="endpoint">
+    <h3>DELETE /api/solarniPaneli/{id}</h3>
+    <p>Briše postojeći solarni panel prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID solarnog panela koji se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Solarni panel uspešno obrisan"
+
+400 Bad Request - "Greška prilikom brisanja solarnog panela"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih solarnih panela -->
+<div class="endpoint">
+    <h3>GET /api/solarniPaneli</h3>
+    <p>Vraća listu svih solarnih panela.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "dobavljacID": 1, "modelID": 2 }, ... ]
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+
 
 </body>
 </html>
