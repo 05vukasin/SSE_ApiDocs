@@ -569,6 +569,143 @@
     </pre>
 </div>
 
+<h2>Modeli Invertora</h2>
+
+<!-- POST: Dodavanje modela invertora -->
+<div class="endpoint">
+    <h3>POST /api/modeliInvertora</h3>
+    <p>Dodaje novi model invertora.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "serijaModela": "string",
+    "nazivModela": "string",
+    "snagaKWP": "string (decimal)"
+}
+    </pre>
+
+    <h4>Validacija:</h4>
+    <p><strong>serijaModela</strong>, <strong>nazivModela</strong> i <strong>snagaKWP</strong> su obavezna polja.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model invertora uspešno dodat"
+
+400 Bad Request - "Sva obavezna polja moraju biti prisutna."
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje modela invertora -->
+<div class="endpoint">
+    <h3>DELETE /api/modeliInvertora/{id}</h3>
+    <p>Briše postojeći model invertora prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID modela invertora koji se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model invertora uspešno obrisan"
+
+400 Bad Request - "Greška prilikom brisanja modela invertora"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih modela invertora -->
+<div class="endpoint">
+    <h3>GET /api/modeliInvertora</h3>
+    <p>Vraća listu svih modela invertora.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "serijaModela": "Serija A", "nazivModela": "Model X", "snagaKWP": 5.5 }, ... ]
+
+404 Not Found - "Nema dostupnih modela invertora"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<h2>Invertori</h2>
+
+<!-- POST: Dodavanje invertora -->
+<div class="endpoint">
+    <h3>POST /api/invertori</h3>
+    <p>Dodaje novi invertor.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "dobavljacID": "integer",
+    "modelID": "integer"
+}
+    </pre>
+
+    <h4>Validacija:</h4>
+    <p><strong>dobavljacID</strong> i <strong>modelID</strong> su obavezna polja.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Invertor uspešno dodat"
+
+400 Bad Request - "Naziv proizvođača i modelID su obavezni."
+    </pre>
+</div>
+
+<!-- PUT: Ažuriranje invertora -->
+<div class="endpoint">
+    <h3>PUT /api/invertori/{id}</h3>
+    <p>Ažurira postojeći invertor prema ID-u.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "nazivProizvodjaca": "string",
+    "modelID": "integer (opciono)"
+}
+    </pre>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Invertor uspešno ažuriran"
+
+400 Bad Request - "Neispravan unos."
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje invertora -->
+<div class="endpoint">
+    <h3>DELETE /api/invertori/{id}</h3>
+    <p>Briše postojeći invertor prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID invertora koji se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Invertor uspešno obrisan"
+
+400 Bad Request - "Greška prilikom brisanja invertora"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih invertora -->
+<div class="endpoint">
+    <h3>GET /api/invertori</h3>
+    <p>Vraća listu svih invertora.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "dobavljacID": 1, "modelID": 2 }, ... ]
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
 
 
 </body>
