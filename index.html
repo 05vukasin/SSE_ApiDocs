@@ -708,5 +708,195 @@
 </div>
 
 
+<h2>Konstrukcije</h2>
+
+<!-- POST: Dodavanje konstrukcije -->
+<div class="endpoint">
+    <h3>POST /api/konstrukcije</h3>
+    <p>Dodaje novu konstrukciju.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "dobavljacID": "integer",
+    "modelID": "integer"
+}
+    </pre>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Konstrukcija uspešno dodata"
+
+400 Bad Request - "Greška prilikom dodavanja konstrukcije"
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje konstrukcije -->
+<div class="endpoint">
+    <h3>DELETE /api/konstrukcije/{id}</h3>
+    <p>Briše postojeću konstrukciju prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID konstrukcije koja se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Konstrukcija uspešno obrisana"
+
+400 Bad Request - "Greška prilikom brisanja konstrukcije"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih konstrukcija -->
+<div class="endpoint">
+    <h3>GET /api/konstrukcije</h3>
+    <p>Vraća listu svih konstrukcija.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "dobavljacID": 1, "modelID": 2 }, ... ]
+
+404 Not Found - "Nema dostupnih konstrukcija"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<h2>Modeli Konstrukcije</h2>
+
+<!-- POST: Dodavanje modela konstrukcije -->
+<div class="endpoint">
+    <h3>POST /api/modeliKonstrukcije</h3>
+    <p>Dodaje novi model konstrukcije.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "naziv": "string",
+    "tip": "string"
+}
+    </pre>
+    <h4>Validacija:</h4>
+    <p><strong>naziv</strong> i <strong>tip</strong> su obavezna polja.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model konstrukcije uspešno dodat"
+
+400 Bad Request - "Naziv i Tip su obavezni."
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih modela konstrukcije -->
+<div class="endpoint">
+    <h3>GET /api/modeliKonstrukcije</h3>
+    <p>Vraća listu svih modela konstrukcije.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "naziv": "Model A", "tip": "Tip 1" }, ... ]
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+
+<h2>Elektro Oprema</h2>
+
+<!-- POST: Dodavanje elektro opreme -->
+<div class="endpoint">
+    <h3>POST /api/elektroOprema</h3>
+    <p>Dodaje novu elektro opremu.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "dobavljacID": "integer",
+    "modelID": "integer"
+}
+    </pre>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Elektro oprema uspešno dodata"
+
+400 Bad Request - "Greška prilikom dodavanja elektro opreme"
+    </pre>
+</div>
+
+<!-- DELETE: Brisanje elektro opreme -->
+<div class="endpoint">
+    <h3>DELETE /api/elektroOprema/{id}</h3>
+    <p>Briše postojeću elektro opremu prema ID-u.</p>
+
+    <h4>Putanja parametara:</h4>
+    <p><strong>id</strong> (integer) - ID elektro opreme koja se briše.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Elektro oprema uspešno obrisana"
+
+400 Bad Request - "Greška prilikom brisanja elektro opreme"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<!-- GET: Prikaz sve elektro opreme -->
+<div class="endpoint">
+    <h3>GET /api/elektroOprema</h3>
+    <p>Vraća listu sve elektro opreme.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "dobavljacID": 1, "modelID": 2 }, ... ]
+
+404 Not Found - "Nema dostupne elektro opreme"
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+<h2>Modeli Elektro Opreme</h2>
+
+<!-- POST: Dodavanje modela elektro opreme -->
+<div class="endpoint">
+    <h3>POST /api/modeliElektroOpreme</h3>
+    <p>Dodaje novi model elektro opreme.</p>
+
+    <h4>Telo zahteva (JSON):</h4>
+    <pre>
+{
+    "naziv": "string"
+}
+    </pre>
+
+    <h4>Validacija:</h4>
+    <p><strong>naziv</strong> je obavezno polje.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - "Model elektro opreme uspešno dodat"
+
+400 Bad Request - "Naziv obavezan."
+    </pre>
+</div>
+
+<!-- GET: Prikaz svih modela elektro opreme -->
+<div class="endpoint">
+    <h3>GET /api/modeliElektroOpreme</h3>
+    <p>Vraća listu svih modela elektro opreme.</p>
+
+    <h4>Odgovor:</h4>
+    <pre>
+200 OK - [ { "id": 1, "naziv": "Model A" }, ... ]
+
+500 Internal Server Error - "Došlo je do greške: {poruka greške}"
+    </pre>
+</div>
+
+
 </body>
 </html>
