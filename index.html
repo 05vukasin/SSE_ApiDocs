@@ -948,6 +948,59 @@
     <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
 </ul>
 
+<!-- Invertori Povezivanje -->
+
+<h2>Invertori Povezivanje</h2>
+
+<h3>POST: Dodavanje invertora u elektranu</h3>
+<p><strong>URL:</strong> <code>/api/invertoriElektrane</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Ovaj endpoint omogućava dodavanje invertora u elektranu.</p>
+<h4>Body Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane.</li>
+    <li><code>invertorID</code> (int) - <strong>Obavezno</strong>. ID invertora.</li>
+    <li><code>serijskiBroj</code> (string) - <strong>Obavezno</strong>. Serijski broj invertora.</li>
+    <li><code>datumInstalacije</code> (string, format: yyyy-MM-dd) - <strong>Obavezno</strong>. Datum instalacije invertora.</li>
+    <li><code>garancijaDo</code> (string, optional, format: yyyy-MM-dd) - Datum do kada važi garancija (neobavezno).</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Invertor uspešno dodat u elektranu.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom dodavanja invertora (npr. nedostaju obavezna polja).</li>
+</ul>
+
+<h3>DELETE: Brisanje invertora iz elektrane</h3>
+<p><strong>URL:</strong> <code>/api/invertoriElektrane/{id}</code></p>
+<p><strong>Method:</strong> DELETE</p>
+<p>Ovaj endpoint omogućava brisanje invertora iz elektrane na osnovu ID-a invertora.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>id</code> (int) - <strong>Obavezno</strong>. ID invertora koji se briše.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Invertor uspešno obrisan iz elektrane.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom brisanja invertora.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+<h3>GET: Prikaz invertora po ID-u elektrane</h3>
+<p><strong>URL:</strong> <code>/api/invertoriElektrane/elektrana/{elektranaID}</code></p>
+<p><strong>Method:</strong> GET</p>
+<p>Ovaj endpoint omogućava prikaz svih invertora za određenu elektranu na osnovu ID-a elektrane.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane za koju se prikazuju invertori.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Lista invertora za datu elektranu.</li>
+    <li><code>404 Not Found</code> - Invertori za ovu elektranu nisu pronađeni.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+
 
 </body>
 </html>
