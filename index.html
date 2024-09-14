@@ -1052,5 +1052,58 @@
     <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
 </ul>
 
+<!-- Elektro Oprema Povezivanje -->
+
+<h2>Elektro Oprema Povezivanje</h2>
+
+<h3>POST: Dodavanje elektro opreme u elektranu</h3>
+<p><strong>URL:</strong> <code>/api/elektroOpremaElektrane</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Ovaj endpoint omogućava dodavanje elektro opreme u elektranu.</p>
+<h4>Body Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane.</li>
+    <li><code>elektroOpremaID</code> (int) - <strong>Obavezno</strong>. ID elektro opreme.</li>
+    <li><code>serijskiBroj</code> (string) - <strong>Obavezno</strong>. Serijski broj elektro opreme.</li>
+    <li><code>datumInstalacije</code> (string, format: yyyy-MM-dd) - <strong>Obavezno</strong>. Datum instalacije elektro opreme.</li>
+    <li><code>garancijaDo</code> (string, optional, format: yyyy-MM-dd) - Datum do kada važi garancija (neobavezno).</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Elektro oprema uspešno dodata u elektranu.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom dodavanja elektro opreme (npr. nedostaju obavezna polja).</li>
+</ul>
+
+<h3>DELETE: Brisanje elektro opreme iz elektrane</h3>
+<p><strong>URL:</strong> <code>/api/elektroOpremaElektrane/{id}</code></p>
+<p><strong>Method:</strong> DELETE</p>
+<p>Ovaj endpoint omogućava brisanje elektro opreme iz elektrane na osnovu ID-a elektro opreme.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>id</code> (int) - <strong>Obavezno</strong>. ID elektro opreme koja se briše.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Elektro oprema uspešno obrisana iz elektrane.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom brisanja elektro opreme.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+<h3>GET: Prikaz elektro opreme po ID-u elektrane</h3>
+<p><strong>URL:</strong> <code>/api/elektroOpremaElektrane/elektrana/{elektranaID}</code></p>
+<p><strong>Method:</strong> GET</p>
+<p>Ovaj endpoint omogućava prikaz svih elektro opreme za određenu elektranu na osnovu ID-a elektrane.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane za koju se prikazuje elektro oprema.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Lista elektro opreme za datu elektranu.</li>
+    <li><code>404 Not Found</code> - Elektro oprema za ovu elektranu nije pronađena.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+
 </body>
 </html>
