@@ -897,6 +897,57 @@
     </pre>
 </div>
 
+<!-- Solarni Paneli Povezivanje -->
+
+<h2>Solarni Paneli Povezivanje</h2>
+
+<h3>POST: Dodavanje solarnog panela u elektranu</h3>
+<p><strong>URL:</strong> <code>/api/solarniPaneliElektrane</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Ovaj endpoint omogućava dodavanje solarnog panela u elektranu.</p>
+<h4>Body Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane.</li>
+    <li><code>solarniPanelID</code> (int) - <strong>Obavezno</strong>. ID solarnog panela.</li>
+    <li><code>serijskiBroj</code> (string) - <strong>Obavezno</strong>. Serijski broj solarnog panela.</li>
+    <li><code>datumInstalacije</code> (string, format: yyyy-MM-dd) - <strong>Obavezno</strong>. Datum instalacije solarnog panela.</li>
+    <li><code>garancijaDo</code> (string, optional, format: yyyy-MM-dd) - Datum do kada važi garancija (neobavezno).</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Solarni panel uspešno dodat u elektranu.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom dodavanja solarnog panela (npr. nedostaju obavezna polja).</li>
+</ul>
+
+<h3>DELETE: Brisanje solarnog panela iz elektrane</h3>
+<p><strong>URL:</strong> <code>/api/solarniPaneliElektrane/{id}</code></p>
+<p><strong>Method:</strong> DELETE</p>
+<p>Ovaj endpoint omogućava brisanje solarnog panela iz elektrane na osnovu ID-a solarnog panela.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>id</code> (int) - <strong>Obavezno</strong>. ID solarnog panela koji se briše.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Solarni panel uspešno obrisan iz elektrane.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom brisanja solarnog panela.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+<h3>GET: Prikaz solarnog panela po ID-u elektrane</h3>
+<p><strong>URL:</strong> <code>/api/solarniPaneliElektrane/elektrana/{elektranaID}</code></p>
+<p><strong>Method:</strong> GET</p>
+<p>Ovaj endpoint omogućava prikaz svih solarnih panela za određenu elektranu na osnovu ID-a elektrane.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane za koju se prikazuju solarni paneli.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Lista solarnih panela za datu elektranu (može biti prazna).</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
 
 </body>
 </html>
