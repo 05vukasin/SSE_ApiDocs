@@ -1001,6 +1001,56 @@
 </ul>
 
 
+<!-- Konstrukcija Povezivanje -->
+
+<h2>Konstrukcija Povezivanje</h2>
+
+<h3>POST: Dodavanje konstrukcije u elektranu</h3>
+<p><strong>URL:</strong> <code>/api/konstrukcijaElektrane</code></p>
+<p><strong>Method:</strong> POST</p>
+<p>Ovaj endpoint omogućava dodavanje konstrukcije u elektranu.</p>
+<h4>Body Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane.</li>
+    <li><code>konstrukcijaID</code> (int) - <strong>Obavezno</strong>. ID konstrukcije.</li>
+    <li><code>datumInstalacije</code> (string, format: yyyy-MM-dd) - <strong>Obavezno</strong>. Datum instalacije konstrukcije.</li>
+    <li><code>garancijaDo</code> (string, optional, format: yyyy-MM-dd) - Datum do kada važi garancija (neobavezno).</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Konstrukcija uspešno dodata u elektranu.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom dodavanja konstrukcije (npr. nedostaju obavezna polja).</li>
+</ul>
+
+<h3>DELETE: Brisanje konstrukcije iz elektrane</h3>
+<p><strong>URL:</strong> <code>/api/konstrukcijaElektrane/{id}</code></p>
+<p><strong>Method:</strong> DELETE</p>
+<p>Ovaj endpoint omogućava brisanje konstrukcije iz elektrane na osnovu ID-a konstrukcije.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>id</code> (int) - <strong>Obavezno</strong>. ID konstrukcije koja se briše.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Konstrukcija uspešno obrisana iz elektrane.</li>
+    <li><code>400 Bad Request</code> - Greška prilikom brisanja konstrukcije.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
+
+<h3>GET: Prikaz konstrukcija po ID-u elektrane</h3>
+<p><strong>URL:</strong> <code>/api/konstrukcijaElektrane/elektrana/{elektranaID}</code></p>
+<p><strong>Method:</strong> GET</p>
+<p>Ovaj endpoint omogućava prikaz svih konstrukcija za određenu elektranu na osnovu ID-a elektrane.</p>
+<h4>URL Parameters:</h4>
+<ul>
+    <li><code>elektranaID</code> (int) - <strong>Obavezno</strong>. ID elektrane za koju se prikazuju konstrukcije.</li>
+</ul>
+<h4>Responses:</h4>
+<ul>
+    <li><code>200 OK</code> - Lista konstrukcija za datu elektranu.</li>
+    <li><code>404 Not Found</code> - Konstrukcije za ovu elektranu nisu pronađene.</li>
+    <li><code>500 Internal Server Error</code> - Došlo je do greške na serveru.</li>
+</ul>
 
 </body>
 </html>
